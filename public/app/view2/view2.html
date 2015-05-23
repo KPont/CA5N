@@ -1,11 +1,31 @@
 <div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
-<p>This is the partial for view 2.</p>
-<p style="color: darkgreen">Partial (view2.html) is located in the folder for this view (app/view2)</p>
-<br/>
-<p style="color: #105cb6">
 
-  {{info.msg}}
-</p>
+
+<div class="form-group">
+    <input type="text" style="width:10em;" placeholder="User name" class="form-control"
+           ng-model="user.newusername">
+</div>
+<div class="form-group">
+    <input type="password" style="width:10em;" placeholder="Password" class="form-control"
+           ng-model="user.newpassword">
+</div>
+<div class="form-group">
+    <input type="text" style="width:10em;" placeholder="First Name" class="form-control"
+           ng-model="user.firstname">
+</div>
+<div class="form-group">
+    <input type="text" style="width:10em;" placeholder="Last Name" class="form-control"
+           ng-model="user.lastname">
+</div>
+<div class="form-group">
+    <input type="text" style="width:10em;" placeholder="Email Address" class="form-control"
+           ng-model="user.email">
+</div>
+<div class="form-group">
+    <input type="text" style="width:10em;" placeholder="Phone Number" class="form-control"
+           ng-model="user.phone">
+</div>
+<button type="submit" class="btn btn-success">Register</button>
 
 
 

@@ -49,12 +49,15 @@ process.on('SIGINT', function() {
 
 /** User SCHEMA **/
 /** Replace this Schema with your own(s) **/
-var usersSchema = new mongoose.Schema({
-  userName : String,
-  email: {type: String, unique: true},
-  pw: String,
-  created: { type: Date, default: new Date() }
+var UserSchema = new mongoose.Schema({
+    firstName: String,
+    lastName: String,
+    userName: {type: String, unique: true},
+    email: String,
+    phone: Number,
+    password: String
 });
 
-mongoose.model( 'User', usersSchema,"testusers" );
+var User = mongoose.model('User', UserSchema);
 
+exports.User = User;
