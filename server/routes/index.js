@@ -34,46 +34,32 @@ router.post('/authenticate', function (req, res) {
         else {
             var profile = {
                 username: req.body.username,
-                role: "user",
-                id: 1000
+                role: "admin",
+                id: 12345
             };
 
-            var token = jwt.sign(profile, require("../security/secrets").secretTokenUser, { expiresInMinutes: 60*5 });
+            var token = jwt.sign(profile, require("../security/secrets").secretTokenAdmin, { expiresInMinutes: 60*5 });
             res.json({ token: token });
             return;
         }
         return res.redirect("/");
     });
-   if (req.body.username === 'user1' && req.body.password === 'test') {
-    var profile = {
-      username: 'user1',
-      role: "user",
-      id: 1000
-    };
-    // We are sending the profile inside the token
-    var token = jwt.sign(profile, require("../security/secrets").secretTokenUser, { expiresInMinutes: 60*5 });
-    res.json({ token: token });
-    return;
-  }
-
-  if (req.body.username === 'admin1' && req.body.password === 'test') {
-    var profile = {
-      username: 'admin1',
-      role: "admin",
-      id: 123423
-    };
-    // We are sending the profile inside the token
-    var token = jwt.sign(profile, require("../security/secrets").secretTokenAdmin, { expiresInMinutes: 60*5 });
-    res.json({ token: token });
-    return;
-  }
-
-  else{
-    res.status(401).send('Wrong user or password');
-    return;
-  }
 });
 
+router.post('/findflight', function (req, res) {
+
+    facade.getFlight(req.body.depart, req.body.arrival, req.body.date, function (err, result) {
+        if (err || result === false) {
+            res.json('Wrong user or password');
+            return;
+        }
+        else {
+            res.end(result);
+            return;
+        }
+        return res.redirect("/");
+    });
+});
 
 //Get Partials made as Views
 router.get('/partials/:partialName', function(req, res) {

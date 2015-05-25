@@ -21,7 +21,7 @@ function _checkUser(user,password,callback){
         if(err) {
             return callback(err);
         }
-        if(foundUser != null && foundUser.password === password){
+        if(foundUser !== null && foundUser.password === password){
             callback(null,true);
         } else
         {
@@ -66,7 +66,7 @@ function _createUser(UserJson){
 
 function _getFlight(departurePort, landingPort, date, callback){
     var options = {
-        url: "http://localhost:8084/CA5/api/flights/" + departurePort + "/" + landingPort + "/" + date,
+        url: "http://semesterproject-testnikolai1.rhcloud.com/SemesterProjectFligths/api/flights/" + departurePort + "/" + landingPort + "/" + date,
         method: 'GET',
         json: true
     }
