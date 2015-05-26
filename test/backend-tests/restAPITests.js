@@ -8,6 +8,7 @@ var testPort = 9999;
 var testServer;
 var mongoose = require("mongoose");
 var User = mongoose.model("User");
+var nock = require('nock');
 
 describe('REST API for /user', function () {
   //Start the Server before the TESTS
@@ -23,13 +24,7 @@ describe('REST API for /user', function () {
   })
 
   beforeEach(function(done){
-    User.remove({}, function ()
-    {
-      var array = [{userName : "Lars", email :"lars@a.dk",pw: "xxx"},{userName : "Henrik", email :"henrik@a.dk",pw: "xxx"}];
-      User.create(array,function(err){
-        done();
-      });
-    });
+     nock.cleanAll();
   })
 
   after(function(){  //Stop server after the test
@@ -39,6 +34,16 @@ describe('REST API for /user', function () {
   })
 
   it("Should get 2 users; Lars and Henrik", function (done) {
+      var couchdb = nock('http://myapp.iriscouch.com')
+          .get('/users/1')
+          .reply(200, {
+              _id: '123ABC',
+              _rev: '946B7D1C',
+              username: 'pgte',
+              email: 'pedro.teixeira@gmail.com'
+          });
+
+
     http.get("http://localhost:"+testPort+"/adminApi/user",function(res){
       res.setEncoding("utf8");//response data is now a string
       res.on("data",function(chunk){

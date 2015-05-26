@@ -1,31 +1,48 @@
 <div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
 
-
+<form role="form" ng-submit="search()" ng-controller="View2Ctrl">
 <div class="form-group">
-    <input type="text" style="width:10em;" placeholder="User name" class="form-control"
-           ng-model="user.newusername">
+    <input type="text" style="width:10em;" placeholder="Departure" class="form-control"
+           ng-model="departure">
 </div>
 <div class="form-group">
-    <input type="password" style="width:10em;" placeholder="Password" class="form-control"
-           ng-model="user.newpassword">
+    <input type="text" style="width:10em;" placeholder="Arrival" class="form-control"
+           ng-model="arrival">
 </div>
 <div class="form-group">
-    <input type="text" style="width:10em;" placeholder="First Name" class="form-control"
-           ng-model="user.firstname">
+    <input type="text" style="width:10em;" placeholder="Date" class="form-control"
+           ng-model="date">
 </div>
-<div class="form-group">
-    <input type="text" style="width:10em;" placeholder="Last Name" class="form-control"
-           ng-model="user.lastname">
-</div>
-<div class="form-group">
-    <input type="text" style="width:10em;" placeholder="Email Address" class="form-control"
-           ng-model="user.email">
-</div>
-<div class="form-group">
-    <input type="text" style="width:10em;" placeholder="Phone Number" class="form-control"
-           ng-model="user.phone">
-</div>
-<button type="submit" class="btn btn-success">Register</button>
-
+<button type="submit" class="btn btn-success">Search</button>
+    <table width="100%" border="1">
+        <thead>
+        <tr>
+            <td>Airline</td>
+            <td>Flight id</td>
+            <td>Price</td>
+            <td>Take off date</td>
+            <td>Departure</td>
+            <td>Landing date</td>
+            <td>Destination</td>
+            <td>Total seats</td>
+            <td>Seats available</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="flight in flights">
+            <td>{{ flight.airline }}</td>
+            <td>{{flight.flightId}}</td>
+            <td>{{ flight.price }}</td>
+            <td>{{ flight.takeOffDate }}</td>
+            <td>{{ flight.depature }}</td>
+            <td>{{ flight.landingDate }}</td>
+            <td>{{ flight.destination }}</td>
+            <td>{{ flight.seats }}</td>
+            <td>{{ flight.availableSeats}}</td>
+            <td><button  class="btn btn-success" ng-click="order(flight)">Order</button></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
 
 
