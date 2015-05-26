@@ -111,7 +111,57 @@ angular.module('myAppRename.controllers', []).
         };
 
 
-  });
+  }
+
+)
+    .controller('MyCtrl3', function ($scope, $http, $window,$location) {
+        // write MyCtrl2 here
+        function url_base64_decode(str) {
+            var output = str.replace('-', '+').replace('_', '/');
+            switch (output.length % 4) {
+                case 0:
+                    break;
+                case 2:
+                    output += '==';
+                    break;
+                case 3:
+                    output += '=';
+                    break;
+                default:
+                    throw 'Illegal base64url string!';
+            }
+            return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
+        }
+
+
+        $scope.title = "Semester Project";
+        $scope.username = "";
+        $scope.isAuthenticated = false;
+        $scope.isAdmin = true;
+        $scope.isUser = true;
+        $scope.message = '';
+        $scope.error = null;
+
+
+
+        $scope.findflight = function () {
+            $http
+                .post('/findflight')
+                .success(function (data, status, headers, config) {
+
+                    $scope.flights = data;
+                })
+                .error(function (data, status, headers, config) {
+                    // Erase the token if the user fails to log in
+                    delete $window.sessionStorage.token;
+                    $scope.isAuthenticated = false;
+
+                    $scope.error = 'You failed to login. Invalid User or Password';
+                });
+        };
+
+    });
+
 
 
 
