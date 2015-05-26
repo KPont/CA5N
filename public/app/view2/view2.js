@@ -9,9 +9,9 @@ angular.module('myAppRename.view2', ['ngRoute'])
     });
   }])
   .controller('View2Ctrl', ['$scope', '$http', function ($scope, $http) {
-        $scope.departure = "departure";
-        $scope.arrival = "arrival";
-        $scope.date = "date";
+        $scope.departure = "";
+        $scope.arrival = "";
+        $scope.date = "";
         //$scope.flights = [];
 
         $scope.search = function () {
@@ -30,22 +30,7 @@ angular.module('myAppRename.view2', ['ngRoute'])
 
         };
 
-        $scope.order = function (flight) {
-            $http({
-            method: 'POST',
-            url: '/Flights/'+flight.id
-        })
-            .success(function (data, status, headers, config) {
-                $scope.flights = angular.fromJson(data);
-                JSON.parse($scope.flights);
 
-
-            })
-            .error(function (data, status, headers, config) {
-                $scope.error = 'Something went wrong';
-            });
-
-    };
 
         $http({
       method: 'GET',

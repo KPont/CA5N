@@ -1,27 +1,10 @@
 <div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
-<p>This is the partial for view 3.</p>
-<p>Data is fetched from a REST service, connected to MongoDB </p>
+
+<p>Registered Users: </p>
 <ul>
-  <li ng-repeat="user in users"> {{user.userName}} {{user.email}} </li>
+    <li ng-repeat="user in users"> {{user.userName}} {{user.email}} </li>
 </ul>
 </p>
 
 <div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
 
-<form role="form" ng-show="!isAuthenticated" ng-submit="findflight()" ng-controller="MyCtrl3">
-    <div class="form-group">
-        <input type="text" style="width:10em;" placeholder="Departure" class="form-control" name="depart">
-    </div>
-    <div class="form-group">
-        <input type="text" style="width:10em;" placeholder="Arrival" class="form-control" name="arrival">
-    </div>
-    <div class="form-group">
-        <input type="text" style="width:10em;" placeholder="Date (milliseconds)" class="form-control" name="date">
-    </div>
-    <button type="submit" class="btn btn-success">Find Flight</button>
-</form>
-
-
-<ul>
-    <li ng-repeat="flight in flights"> {{flight[0]}} </li>
-</ul>

@@ -133,7 +133,6 @@ function _getTicketInfo(userName, callback){
 
 function _getFlight(departurePort, landingPort, date, callback){
    var airlines =  _getAllAirlines(function(err, airlines){
-       console.log(departurePort);
         var counter = 0;
        var airlinelenght = airlines.length;
        var flights = [];
@@ -147,10 +146,8 @@ function _getFlight(departurePort, landingPort, date, callback){
            }
 
            request(options, function (error, response, body) {
-               console.log(JSON.stringify(response.statusCode))
                if (!error && JSON.stringify(response.statusCode === 200)) {
                    for(var j = 0;j < body.length; j++){
-                      // console.log('herind ?'+body[j])
                        flights.push(body[j])
                    }
                }
@@ -180,14 +177,7 @@ function _getAllFlights(callback){
         console.log(error + " : " + JSON.stringify(body))
     });
 }
-function _ja(){
-//_createAirline({'airlineName' : 'Airline 7', 'url' : 'http://Airline7-team007.rhcloud.com'}, function(err, airline){
 
-//})
-    _getFlight('CPH','LON','1430784000000',function(err, flights){
-        console.log('yoooap'+ flights);
-    })
-}
 
 
 
@@ -203,5 +193,4 @@ module.exports = {
     createAirline : _createAirline,
     createUser : _createUser,
     getFlight : _getFlight,
-    //ja : _ja()
 }

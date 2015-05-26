@@ -11,6 +11,7 @@ var User = mongoose.model("User");
 var nock = require('nock');
 
 describe('REST API for /user', function () {
+    this.timeout(8000);
   //Start the Server before the TESTS
   before(function (done) {
 
@@ -33,26 +34,32 @@ describe('REST API for /user', function () {
     testServer.close();
   })
 
-  it("Should get 2 users; Lars and Henrik", function (done) {
-      var couchdb = nock('http://myapp.iriscouch.com')
-          .get('/users/1')
-          .reply(200, {
-              _id: '123ABC',
-              _rev: '946B7D1C',
-              username: 'pgte',
-              email: 'pedro.teixeira@gmail.com'
+  it("Should get a flight", function (done) {
+      var api = nock(testServer)
+          .get('/getFlights/CPH/LON/123456')
+          .reply(200, [{
+              airline: 'airline1',
+              price: 1234,
+              flightId: '7',
+              takeOffDate: '123456',
+              landingDate: '123456',
+              depature: 'CPH',
+              destination: 'LON',
+              seats: 2,
+              availableSeats: 2,
+              bookingCode: true
+          }]);
+
+      http.get(testServer+"/CPH/LON/123456", function(resp) {
+          var str = "";
+          resp.on("data", function(data) { str += data; });
+          resp.on("end", function() {
+              console.log("Got Result: ", str);
+              api.isDone();
+              done();
           });
-
-
-    http.get("http://localhost:"+testPort+"/adminApi/user",function(res){
-      res.setEncoding("utf8");//response data is now a string
-      res.on("data",function(chunk){
-        var n = JSON.parse(chunk);
-        n.length.should.equal(2);
-        n[0].userName.should.equal("Lars");
-        n[1].userName.should.equal("Henrik");
-        done();
       });
-    })
+
+   done();
   });
 });
